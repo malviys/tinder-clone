@@ -1,16 +1,10 @@
 import {
     AppBar,
-    Box,
-    Card,
-    CardContent,
-    CardHeader,
     Container,
     CssBaseline,
     Grid,
     IconButton,
-    Paper,
     Toolbar,
-    Typography,
 } from "@material-ui/core";
 import {
     Cancel,
@@ -21,46 +15,22 @@ import {
     Refresh,
     Star,
 } from "@material-ui/icons";
-import Image from "material-ui-image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TinderCard from "react-tinder-card";
+import fetchPersons from "../../../api/fetchPersons";
 import useStyles from "./styles";
 
-const persons = [
-    {
-        name: "Elon Musk",
-        imageUrl:
-            "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.yPByyNzsvw5Q7rLe0lKR0gEyDL%26pid%3DApi&f=1",
-    },
-    {
-        name: "Jeff Bezos",
-        imageUrl:
-            "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.WNbrzQwph77vCsHmg4Wf_wHaFj%26pid%3DApi&f=1",
-    },
-    {
-        name: "Elon Musk",
-        imageUrl:
-            "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.yPByyNzsvw5Q7rLe0lKR0gEyDL%26pid%3DApi&f=1",
-    },
-    {
-        name: "Jeff Bezos",
-        imageUrl:
-            "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.WNbrzQwph77vCsHmg4Wf_wHaFj%26pid%3DApi&f=1",
-    },
-    {
-        name: "Elon Musk",
-        imageUrl:
-            "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.yPByyNzsvw5Q7rLe0lKR0gEyDL%26pid%3DApi&f=1",
-    },
-    {
-        name: "Jeff Bezos",
-        imageUrl:
-            "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.WNbrzQwph77vCsHmg4Wf_wHaFj%26pid%3DApi&f=1",
-    },
-];
-
-export default function HomePage1() {
+export default function HomePage() {
     const classes = useStyles();
+
+    const [persons, setPersons] = useState([]);
+
+    useEffect(() => {
+        (async () => {
+            const res = await fetchPersons();
+            setPersons(res.data);
+        })();
+    }, []);
 
     return (
         <>
@@ -71,7 +41,10 @@ export default function HomePage1() {
                         <IconButton>
                             <Person />
                         </IconButton>
-                        <img src="https://external-content.duckduckgo.com/ip3/tinder.com.ico" className={classes.toolbarIcon}/>
+                        <img
+                            src="https://external-content.duckduckgo.com/ip3/tinder.com.ico"
+                            className={classes.toolbarIcon}
+                        />
                         <IconButton>
                             <Forum />
                         </IconButton>
@@ -98,31 +71,31 @@ export default function HomePage1() {
                 </Container>
                 <Container className={classes.swipeButtons}>
                     <Grid container justify="space-evenly">
-                        <Grid item  >
+                        <Grid item>
                             <IconButton className={classes.button}>
                                 <Refresh />
                             </IconButton>
                         </Grid>
 
-                        <Grid item >
+                        <Grid item>
                             <IconButton className={classes.button}>
                                 <Cancel />
                             </IconButton>
                         </Grid>
 
-                        <Grid item >
+                        <Grid item>
                             <IconButton className={classes.button}>
                                 <Star />
                             </IconButton>
                         </Grid>
 
-                        <Grid item >
+                        <Grid item>
                             <IconButton className={classes.button}>
                                 <Favorite />
                             </IconButton>
                         </Grid>
 
-                        <Grid item >
+                        <Grid item>
                             <IconButton className={classes.button}>
                                 <FlashOn />
                             </IconButton>
